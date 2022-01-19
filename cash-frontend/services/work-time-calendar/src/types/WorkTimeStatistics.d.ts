@@ -1,0 +1,3 @@
+interface IWorkTimeStatistics {
+  timeSum: number;
+}

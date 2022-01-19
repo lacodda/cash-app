@@ -1,0 +1,35 @@
+{
+  "name": "cash-app",
+  "version": "0.0.1",
+  "description": "Cash application",
+  "license": "MIT",
+  "homepage": "https://github.com/lacodda/cash-app",
+  "author": {
+    "name": "Kirill Lahtachev",
+    "email": "lahtachev@gmail.com",
+    "url": "http://lacodda.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lacodda/cash-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lacodda/cash-app/issues"
+  },
+  "keywords": [
+    "microservices",
+    "microfrontend"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "start": "lerna run start --stream",
+    "format": "lerna run format --stream",
+    "build": "lerna run build",
+    "deploy": "yarn bootstrap && yarn build",
+    "preserve": "yarn build",
+    "postinstall": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
