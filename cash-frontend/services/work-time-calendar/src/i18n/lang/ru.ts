@@ -1,7 +1,1 @@
-export default {
-  menu: {
-    home: 'Главная',
-    calendar: 'Календарь',
-    statistics: 'Статистика',
-  },
-};
+export default {};

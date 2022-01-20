@@ -9,10 +9,7 @@ declare module 'vue' {
     ElButton: typeof import('element-plus/lib')['ElButton']
     ElCard: typeof import('element-plus/lib')['ElCard']
     ElCol: typeof import('element-plus/lib')['ElCol']
-    ElHeader: typeof import('element-plus/lib')['ElHeader']
     ElMain: typeof import('element-plus/lib')['ElMain']
-    ElMenu: typeof import('element-plus/lib')['ElMenu']
-    ElMenuItem: typeof import('element-plus/lib')['ElMenuItem']
     ElPopover: typeof import('element-plus/lib')['ElPopover']
     ElRow: typeof import('element-plus/lib')['ElRow']
     ElScrollbar: typeof import('element-plus/lib')['ElScrollbar']
@@ -21,7 +18,6 @@ declare module 'vue' {
     ICarbonArrowRight: typeof import('~icons/carbon/arrow-right')['default']
     ICarbonEdit: typeof import('~icons/carbon/edit')['default']
     Loading: typeof import('element-plus/lib')['ElLoadingDirective']
-    NavMenu: typeof import('./components/NavMenu.vue')['default']
     WorkTimeStatistics: typeof import('./components/WorkTimeStatistics.vue')['default']
   }
 }

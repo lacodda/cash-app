@@ -1,6 +1,5 @@
 <template>
   <el-scrollbar height="100vh" class="container">
-    <nav-menu />
     <el-main>
       <router-view />
     </el-main>
