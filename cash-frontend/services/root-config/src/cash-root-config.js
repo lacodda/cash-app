@@ -1,34 +1,26 @@
 import { registerApplication, start } from "single-spa";
+import { constructApplications, constructRoutes, constructLayoutEngine } from "single-spa-layout";
 
-// registerApplication({
-//   name: "@cash/navbar",
-//   app: () => System.import("@cash/navbar"),
-//   activeWhen: "/",
-//   customProps: {
-//     menu: [],
-//   },
-// });
+const apps = {
+  "@cash/navbar": import(
+    /* webpackIgnore: true */
+    "//localhost:3081/src/main.ts"
+  ),
+  "@cash/work-time-calendar": import(
+    /* webpackIgnore: true */
+    "//localhost:3080/src/main.ts"
+  ),
+};
 
-// registerApplication({
-//   name: "@cash/home",
-//   app: () =>
-//     import(
-//       /* webpackIgnore: true */
-//       "http://localhost:3081/src/main.ts"
-//     ),
-//   activeWhen: "/home",
-// });
-
-registerApplication({
-  name: "@cash/work-time-calendar",
-  app: () =>
-    import(
-      /* webpackIgnore: true */
-      "//localhost:3080/src/main.ts"
-    ),
-  activeWhen: "/",
+const routes = constructRoutes(document.querySelector("#single-spa-layout"));
+const applications = constructApplications({
+  routes,
+  loadApp: ({ name }) => {
+    return apps[name];
+  },
 });
+const layoutEngine = constructLayoutEngine({ routes, applications });
+applications.forEach(registerApplication);
 
-start({
-  urlRerouteOnly: true,
-});
+layoutEngine.activate();
+start();

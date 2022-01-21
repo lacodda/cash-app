@@ -27,7 +27,8 @@
     "build": "lerna run build",
     "deploy": "yarn bootstrap && yarn build",
     "preserve": "yarn build",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "update:version": "lerna version --no-push"
   },
   "devDependencies": {
     "lerna": "^4.0.0"

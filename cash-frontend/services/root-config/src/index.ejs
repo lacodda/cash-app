@@ -40,11 +40,7 @@
         }
       }
     </script>
-    <link
-      rel="preload"
-      href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js"
-      as="script"
-    />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/single-spa@5.9.0/lib/system/single-spa.min.js" as="script" />
 
     <!-- Add your organization's prod import map URL to this script's src  -->
     <!-- <script type="systemjs-importmap" src="/importmap.json"></script> -->
@@ -73,15 +69,24 @@
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/system.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.3/dist/extras/amd.min.js"></script>
     <% } %>
+
+    <template id="single-spa-layout">
+      <single-spa-router>
+        <header>
+          <application name="@cash/navbar"></application>
+        </header>
+        <main>
+          <route path="app">
+            <application name="@cash/work-time-calendar"></application>
+          </route>
+        </main>
+      </single-spa-router>
+    </template>
   </head>
   <body>
-    <main></main>
     <script>
       System.import("@cash/root-config");
     </script>
-    <import-map-overrides-full
-      show-when-local-storage="devtools"
-      dev-libs
-    ></import-map-overrides-full>
+    <import-map-overrides-full show-when-local-storage="devtools" dev-libs></import-map-overrides-full>
   </body>
 </html>
