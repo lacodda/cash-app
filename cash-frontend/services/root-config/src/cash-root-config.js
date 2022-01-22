@@ -2,6 +2,7 @@ import { registerApplication, start } from "single-spa";
 import { constructApplications, constructRoutes, constructLayoutEngine } from "single-spa-layout";
 
 const apps = {
+  "@cash/homepage": System.import("@cash/homepage"),
   "@cash/navbar": import(
     /* webpackIgnore: true */
     "//localhost:3081/src/main.ts"

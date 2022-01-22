@@ -49,7 +49,8 @@
     <script type="systemjs-importmap">
       {
         "imports": {
-          "@cash/root-config": "//localhost:9000/cash-root-config.js"
+          "@cash/root-config": "//localhost:9000/cash-root-config.js",
+          "@cash/homepage": "//localhost:3082/cash-homepage.js"
         }
       }
     </script>
@@ -76,7 +77,10 @@
           <application name="@cash/navbar"></application>
         </header>
         <main>
-          <route path="app">
+          <route default>
+            <application name="@cash/homepage"></application>
+          </route>
+          <route path="calendar">
             <application name="@cash/work-time-calendar"></application>
           </route>
         </main>
