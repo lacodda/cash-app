@@ -17,7 +17,7 @@ export const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   // history: createWebHistory(process.env.BASE_URL),
   routes,
 });
