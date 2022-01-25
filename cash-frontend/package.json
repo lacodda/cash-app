@@ -1,6 +1,24 @@
 {
   "name": "cash-frontend",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "description": "cash frontend",
+  "license": "MIT",
+  "homepage": "https://github.com/lacodda/cash-app",
+  "author": {
+    "name": "Kirill Lahtachev",
+    "email": "lahtachev@gmail.com",
+    "url": "http://lacodda.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:lacodda/cash-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lacodda/cash-app/issues"
+  },
+  "keywords": [
+    "frontend"
+  ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "start": "lerna run start --stream",

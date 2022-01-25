@@ -11,7 +11,8 @@ import VueI18n from '@intlify/vite-plugin-vue-i18n';
 import ViteFonts from 'vite-plugin-fonts';
 
 const envPrefix = 'CLIENT_';
-const projectRoot = join(__dirname, './');
+const projectRoot = join(__dirname, '../../../');
+const appRoot = join(__dirname, './');
 const srcRoot = resolve(__dirname, './src');
 
 export default ({ mode }) => {
@@ -24,7 +25,7 @@ export default ({ mode }) => {
       preserveEntrySignatures: true,
     },
     base: './',
-    envDir: projectRoot,
+    envDir: appRoot,
     envPrefix,
 
     resolve: {
@@ -152,7 +153,7 @@ export default ({ mode }) => {
       VueI18n({
         runtimeOnly: true,
         compositionOnly: true,
-        include: [resolve(projectRoot, './locales/**')], //resolve(srcRoot, './i18n/**')
+        include: [resolve(appRoot, './locales/**')], //resolve(srcRoot, './i18n/**')
       }),
 
       ViteFonts({

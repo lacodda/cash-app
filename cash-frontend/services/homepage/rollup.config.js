@@ -1,10 +1,15 @@
+const { join, resolve } = require("path");
+const { readFileSync } = require("fs");
 import svelte from "rollup-plugin-svelte";
-import resolve from "@rollup/plugin-node-resolve";
+import nodeResolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 
 const production = !process.env.ROLLUP_WATCH;
+const projectRoot = join(__dirname, "../../../");
+const keyPath = resolve(projectRoot, "./ssl/ssl.key");
+const certPath = resolve(projectRoot, "./ssl/ssl.crt");
 
 export default {
   input: "src/cash-homepage.js",
@@ -16,8 +21,10 @@ export default {
   },
   plugins: [
     svelte({
-      // enable run-time checks when not in production
-      dev: !production,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+      },
 
       emitCss: false,
     }),
@@ -27,7 +34,7 @@ export default {
     // some cases you'll need additional configuration -
     // consult the documentation for details:
     // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolve({
+    nodeResolve({
       browser: true,
       dedupe: ["svelte"],
     }),
@@ -39,7 +46,16 @@ export default {
 
     // Watch the `dist` directory and refresh the
     // browser on changes when not in production
-    !production && livereload("dist"),
+    !production &&
+      livereload({
+        watch: "dist",
+        // verbose: false, // Disable console output
+        // other livereload options
+        https: {
+          key: readFileSync(keyPath),
+          cert: readFileSync(certPath),
+        },
+      }),
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
@@ -58,7 +74,7 @@ function serve() {
       if (!started) {
         started = true;
 
-        require("child_process").spawn("npm", ["run", "serve", "--", "--dev", "--http2", "--cert", "ssl/ssl.crt", "--key", "ssl/ssl.key"], {
+        require("child_process").spawn("npm", ["run", "serve", "--", "--dev", "--http2", "--cert", certPath, "--key", keyPath], {
           // stdio: ["ignore", "inherit", "inherit"],
           shell: true,
         });
