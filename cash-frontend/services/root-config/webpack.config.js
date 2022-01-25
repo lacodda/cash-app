@@ -1,6 +1,12 @@
+const { join, resolve } = require("path");
+const { readFileSync } = require("fs");
 const { merge } = require("webpack-merge");
 const singleSpaDefaults = require("webpack-config-single-spa");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+const projectRoot = join(__dirname, "../../../");
+const keyPath = resolve(projectRoot, "./ssl/ssl.key");
+const certPath = resolve(projectRoot, "./ssl/ssl.crt");
 
 module.exports = (webpackConfigEnv, argv) => {
   const orgName = "cash";
@@ -24,5 +30,14 @@ module.exports = (webpackConfigEnv, argv) => {
         },
       }),
     ],
+    devServer: {
+      server: {
+        type: "https",
+        options: {
+          key: readFileSync(keyPath),
+          cert: readFileSync(certPath),
+        },
+      },
+    },
   });
 };

@@ -20,7 +20,7 @@
     "root-config"
   ],
   "scripts": {
-    "start": "webpack serve --port 9000 --https --env isLocal",
+    "start": "webpack serve --port 9000 --env isLocal",
     "lint": "eslint src --ext js",
     "test": "cross-env BABEL_ENV=test jest --passWithNoTests",
     "format": "prettier --write .",
