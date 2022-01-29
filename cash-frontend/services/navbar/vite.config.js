@@ -83,7 +83,6 @@ export default ({ mode }) => {
             axios: [
               ['default', 'axios'], // import { default as axios } from 'axios',
             ],
-            ramda: ['propEq', 'find'],
           },
         ],
         resolvers: [ElementPlusResolver()],

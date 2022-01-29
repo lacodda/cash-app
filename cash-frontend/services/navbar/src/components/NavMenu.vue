@@ -7,16 +7,18 @@
       @select="handleSelect"
     >
       <el-menu-item
-        v-for="(item, key) in routes"
+        v-for="(item, key) in menu"
         :key="key"
-        :index="item.name"
-        >{{ translate(item.name) }}</el-menu-item
+        :index="item.index"
+        >{{ item.label }}</el-menu-item
       >
     </el-menu>
   </el-header>
 </template>
 
 <script lang="ts">
+import { RouteRecordRaw, RouteLocationNormalizedLoaded } from 'vue-router';
+import * as R from 'ramda';
 import { routes } from '@/router';
 
 export default defineComponent({
@@ -29,23 +31,26 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
 
-    watch(route, (value) => {
-      if (value && find(propEq('name', value.name), routes)) {
-        activeIndex.value = value.name.toString();
-      }
+    const menu: Array<any> = R.map(
+      ({ name }: RouteRecordRaw) => ({
+        index: name as string,
+        label: t(`menu.${name as string}`),
+      }),
+      routes
+    );
+
+    watch(route, ({ name }: RouteLocationNormalizedLoaded) => {
+      activeIndex.value = name as string;
     });
 
     const handleSelect = (name: string) => {
       router.push({ name });
     };
 
-    const translate = (term: string) => t(`menu.${term}`);
-
     return {
-      routes,
+      menu,
       activeIndex,
       handleSelect,
-      translate,
     };
   },
 });

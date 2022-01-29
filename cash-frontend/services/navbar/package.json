@@ -45,6 +45,7 @@
     "@iconify-json/carbon": "^1.0.12",
     "@intlify/vite-plugin-vue-i18n": "^3.2.1",
     "@types/node": "^17.0.1",
+    "@types/ramda": "^0.27.64",
     "@vitejs/plugin-vue": "^2.0.1",
     "@vuedx/typescript-plugin-vue": "^0.7.4",
     "eslint": "^8.5.0",
