@@ -23,13 +23,15 @@
     "bootstrap": "lerna bootstrap",
     "start": "lerna run start --stream",
     "format": "lerna run format --stream",
-    "prebuild": "rm -rf deploy && mkdir deploy deploy/auth deploy/work-time-calendar deploy/auth-helper",
+    "prebuild": "yarn rm-deploy && yarn mk-deploy",
     "build": "lerna run build",
-    "postbuild": "cp packages/root-config/dist/* deploy && cp packages/auth/dist/* deploy/auth && cp packages/work-time-calendar/dist/* deploy/work-time-calendar && cp packages/auth-helper/dist/* deploy/auth-helper ",
+    "postbuild": "cp packages/root-config/dist/* deploy && cp packages/navbar/dist/* deploy/navbar && cp packages/work-time-calendar/dist/* deploy/work-time-calendar && cp packages/homepage/dist/* deploy/homepage ",
     "deploy": "yarn bootstrap && yarn build",
     "preserve": "yarn build",
     "serve": "npx serve deploy -s -n -C",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "mk-deploy": "npx mkdirp deploy deploy/navbar deploy/work-time-calendar deploy/homepage",
+    "rm-deploy": "npx rimraf deploy/*"
   },
   "dependencies": {
     "lerna": "^4.0.0"
