@@ -22,15 +22,22 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start": "lerna run start --stream",
+    "start": "yarn kill && lerna run start --parallel",
     "format": "lerna run format --stream",
     "build": "lerna run build",
     "deploy": "yarn bootstrap && yarn build",
     "preserve": "yarn build",
     "postinstall": "lerna bootstrap",
-    "update:version": "lerna version --no-push"
+    "update:version": "lerna version --no-push",
+    "kill": "fkill --force --silent :3030 :9000 :3080 :3081 :3082 :3083",
+    "mkcert": "yarn rm-ssl && yarn mk-ssl && mkcert create-ca && mkcert create-cert --key ssl/ssl.key --cert ssl/ssl.crt && yarn rm-ca",
+    "mk-ssl": "npx mkdirp ssl",
+    "rm-ssl": "npx rimraf ssl/*",
+    "rm-ca": "npx rimraf ca.key ca.crt"
   },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "fkill-cli": "^7.0.0",
+    "lerna": "^4.0.0",
+    "mkcert": "^1.5.0"
   }
 }
