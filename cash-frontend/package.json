@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "start": "lerna run start --stream",
+    "start": "lerna run start --parallel",
     "format": "lerna run format --stream",
     "prebuild": "yarn rm-deploy && yarn mk-deploy",
     "build": "lerna run build",
