@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
 import StatisticsService from '@/services/StatisticsService';
-import { IDayData, IFetchParams } from '@/models/calendar.model';
+import { IFetchParams } from '@/models/calendar.model';
 
 export const types = {
   SET_WORK_TIME: 'SET_WORK_TIME',

@@ -1,3 +1,3 @@
-import { Dates } from './dates';
+import Dates from './dates';
 
 export { Dates };

@@ -57,7 +57,7 @@ export default defineComponent({
 
   setup(props, { emit }) {
     const visible = ref(false);
-    const time_ = ref(null);
+    const time_ = ref(undefined);
 
     const time = computed({
       get: () => time_.value,
