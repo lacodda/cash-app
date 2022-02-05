@@ -57,6 +57,7 @@
 </template>
 
 <script lang="ts">
+import * as R from 'ramda';
 import {
   startOfMonth,
   endOfMonth,
@@ -95,9 +96,9 @@ const defaultWorkTime = 28800;
 const defaultTime = setSeconds(defaultWorkTime, startOfDay(now));
 
 function getWeek(): Array<string> {
-  return pipe(
+  return R.pipe(
     eachDayOfInterval,
-    map(formatDayOfWeek)
+    R.map(formatDayOfWeek)
   )({
     start: startOfWeek(now),
     end: endOfWeek(now),
@@ -118,9 +119,9 @@ function getMonth(initDate: Date): IMonth {
     isSelectedMonth: isSameMonth(initDate, date),
   });
 
-  return pipe(
+  return R.pipe(
     eachDayOfInterval,
-    map(day)
+    R.map(day)
   )({
     start,
     end,
@@ -128,21 +129,21 @@ function getMonth(initDate: Date): IMonth {
 }
 
 function getCalendar(data: Array<IDayData>, month: IMonth): Array<IDayData> {
-  const dateLens = lensProp('date');
-  const timeLens = lensProp('time');
-  const setStatus = ifElse(
-    propSatisfies(gte(__, defaultWorkTime), 'time'),
-    assoc('success', true),
-    assoc('failure', true)
+  const dateLens = R.lensProp('date');
+  const timeLens = R.lensProp('time');
+  const setStatus = R.ifElse(
+    R.propSatisfies(R.gte(R.__, defaultWorkTime), 'time'),
+    R.assoc('success', true),
+    R.assoc('failure', true)
   );
   const setTime = (dayData: IDayData) =>
-    over(timeLens, (time: number) => setSeconds(time, dayData.date), dayData);
+    R.over(timeLens, (time: number) => setSeconds(time, dayData.date), dayData);
   const setFormatted = (dayData: IDayData) =>
-    assoc('formatted', formatTime(view(timeLens, dayData)), dayData);
+    R.assoc('formatted', formatTime(R.view(timeLens, dayData)), dayData);
 
-  data = map(
-    pipe(
-      over(dateLens, pipe(parseISO, startOfDay)),
+  data = R.map(
+    R.pipe(
+      R.over(dateLens, R.pipe(parseISO, startOfDay)),
       setStatus,
       setTime,
       setFormatted
@@ -150,12 +151,12 @@ function getCalendar(data: Array<IDayData>, month: IMonth): Array<IDayData> {
     data
   );
 
-  const sameDay = (date: Date) => propSatisfies(isSameDay(date), 'date');
-  const findSameDay = (date: Date) => find(sameDay(date), data);
-  const merge = ({ date }: IDay) => mergeRight({ date }, findSameDay(date));
-  const getDate = pipe(pick(['date']), merge);
+  const sameDay = (date: Date) => R.propSatisfies(isSameDay(date), 'date');
+  const findSameDay = (date: Date) => R.find(sameDay(date), data);
+  const merge = ({ date }: IDay) => R.mergeRight({ date }, findSameDay(date));
+  const getDate = R.pipe(R.pick(['date']), merge);
 
-  return map(getDate, month);
+  return R.map(getDate, month);
 }
 
 export default defineComponent({
@@ -176,7 +177,7 @@ export default defineComponent({
     const week: Array<string> = getWeek();
     const month = computed((): IMonth => getMonth(selectedMonth.value));
     const monthName = computed(() => formatMonthName(selectedMonth.value));
-    const hover: Array<boolean> = reactive(times(F, calendarSize));
+    const hover: Array<boolean> = reactive(R.times(R.F, calendarSize));
     const calendar = computed(() =>
       reactive(getCalendar(props.data, month.value))
     );
@@ -207,7 +208,7 @@ export default defineComponent({
     }
 
     function save(dayData: IDayData): void {
-      const time = pipe(
+      const time = R.pipe(
         startOfDay,
         differenceInSeconds(dayData.time),
         Math.abs

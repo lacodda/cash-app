@@ -12,12 +12,12 @@ interface IMonth {
 }
 
 interface IDayData {
-  date: string;
+  date: string | Date;
   time: number | Date;
   _id?: string;
 }
 
 interface IFetchParams {
-  from: Date;
-  to: Date;
+  readonly from: Date;
+  readonly to: Date;
 }

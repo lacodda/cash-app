@@ -1,10 +1,11 @@
+import * as R from 'ramda';
 import http from '@/http-client';
 import { Dates } from '@/helpers';
 
 /* eslint-disable */
 class WorkTimeService {
   async getAll(fetchParams: IFetchParams): Promise<any> {
-    const params = map(Dates.formatISO)(fetchParams);
+    const params = R.mapObjIndexed(Dates.formatISO, fetchParams);
     return http.get(`/v1/work-time`, { params });
   }
 
