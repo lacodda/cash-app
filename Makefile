@@ -1,0 +1,39 @@
+help:
+	@echo ''
+	@echo 'Usage: make [TARGET] [EXTRA_ARGUMENTS]'
+	@echo 'Targets:'
+	@echo 'make dev: make dev for development work'
+	@echo 'make build: make build container'
+	@echo 'make production: docker production build'
+	@echo 'clean: clean for all clear docker images'
+
+dev:
+	docker-compose -f docker-compose-dev.yml down
+	docker-compose -f docker-compose-dev.yml up
+
+build:
+	docker-compose -f docker-compose-prod.yml build
+	docker-compose -f docker-compose-dev.yml down build
+
+production:
+	docker-compose -f docker-compose-prod.yml up -d --build
+
+clean:
+	docker-compose -f docker-compose-prod.yml down -v
+	docker-compose -f docker-compose-dev.yml down -v
+
+copy:
+	docker cp cash-app_gateway:/usr/src/app/node_modules/ ./cash-backend/gateway
+	docker cp cash-app_auth:/usr/src/app/node_modules/ ./cash-backend/auth
+
+dev-build:
+	docker-compose build
+
+dev-up:
+	docker-compose down
+	docker-compose up -d
+
+docker-clean:
+	-docker rm -f $$(docker ps -a -q)
+	-docker rmi -f $$(docker images -a -q)
+	-docker volume rm $$(docker volume ls -q)

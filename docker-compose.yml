@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  # GATEWAY
+  gateway:
+    container_name: ${COMPOSE_PROJECT_NAME}-gateway
+    build:
+      context: ./cash-backend/gateway
+      dockerfile: Dockerfile
+    restart: always
+    hostname: gateway
+    env_file:
+      - .env
+    ports:
+      - ${API_GATEWAY_PORT}:${API_GATEWAY_PORT}
+    networks:
+      - backend
+      - frontend
+    volumes:
+      - ./cash-backend/gateway:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - auth
+  # AUTH
+  auth:
+    container_name: ${COMPOSE_PROJECT_NAME}-auth
+    build:
+      context: ./cash-backend/auth
+      dockerfile: Dockerfile
+    restart: always
+    hostname: auth
+    env_file:
+      - .env
+    ports:
+      - ${AUTH_SERVICE_PORT}:${AUTH_SERVICE_PORT}
+    networks:
+      - backend
+    volumes:
+      - ./cash-backend/auth:/usr/src/app
+      - /usr/src/app/node_modules
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    external:
+      name: infrastructure
