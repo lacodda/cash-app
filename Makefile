@@ -23,8 +23,8 @@ clean:
 	docker-compose -f docker-compose-dev.yml down -v
 
 copy:
-	docker cp cash-app_gateway:/usr/src/app/node_modules/ ./cash-backend/gateway
-	docker cp cash-app_auth:/usr/src/app/node_modules/ ./cash-backend/auth
+	docker cp cash-app-gateway:/usr/src/app/node_modules/ ./cash-backend/gateway
+	docker cp cash-app-auth:/usr/src/app/node_modules/ ./cash-backend/auth
 
 dev-build:
 	docker-compose build
